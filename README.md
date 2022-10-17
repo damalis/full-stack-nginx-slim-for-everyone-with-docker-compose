@@ -226,7 +226,34 @@ add and/or remove slim site folders and files with any ftp client program in ```
 
 #### Database
 
-Database server name = database
+Database host = database
+
+#### Redis
+
+Redis cache middleware for Slim framework.
+
+Example: Cache every successful HTTP response for 24 hours in the local Redis server.
+
+```
+use Slim\Factory\AppFactory;
+
+require __DIR__ . '/../vendor/autoload.php';
+
+$app = AppFactory::create();
+
+//...
+
+$client = new \Predis\Client('tcp://redis:6379', [
+	'prefix' => $request->getUri()->getHost()
+]);
+
+$app->add(new \RedisCache\Cache($client, [
+	'timeout' => 86400
+]));
+
+// ...
+
+```
 
 #### HTTP Caching
 
