@@ -28,14 +28,15 @@ services:
             test: ["CMD-SHELL", "curl -fk https://${DOMAIN_NAME} || exit 1"]
             interval: 10s
             timeout: 5s
-            retries: 3
-            start_period: 30s
+            retries: 4
+            start_period: 60s
         environment:
             TZ: '${LOCAL_TIMEZONE}'
         labels:            
             - 'docker-volume-backup.stop-during-backup=true'
         command: >
-            bash -c "apt-get -y update && apt-get install -y zip unzip && docker-php-ext-install pdo_mysql && docker-php-ext-enable pdo_mysql; curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer && composer create-project slim/slim-skeleton:dev-master webapp && cd ${WEBSERVER_DOC_ROOT}/webapp && composer require slim/http-cache;  
+            bash -c "apt-get -y update && apt-get install -y zip unzip libicu-dev && docker-php-ext-install pdo_mysql intl && docker-php-ext-enable pdo_mysql intl; curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer && 
+            composer create-project slim/slim-skeleton:dev-master webapp && cd ${WEBSERVER_DOC_ROOT}/webapp && composer require slim/http-cache;  
             grep -qe 'date.timezone = ${LOCAL_TIMEZONE}' ${PHP_INI_DIR_PREFIX}/php/conf.d/security.ini || echo 'date.timezone = ${LOCAL_TIMEZONE}' >> ${PHP_INI_DIR_PREFIX}/php/conf.d/security.ini; php-fpm"
 
     webserver:
@@ -49,13 +50,13 @@ services:
         volumes:
             - 'html:${WEBSERVER_DOC_ROOT}'
             - type: bind
-              source: ./nginx/nginx.conf
+              source: ./webserver/nginx.conf
               target: '${NGINX_PREFIX}/nginx.conf'
             - type: bind
-              source: ./nginx/templates/nginx.conf.template
+              source: ./webserver/templates/nginx.conf.template
               target: '${NGINX_PREFIX}/templates/default.conf.template'
             - type: bind
-              source: ./nginx/ssl-option/options-ssl-nginx.conf
+              source: ./webserver/ssl-option/options-ssl-nginx.conf
               target: '${LETSENCRYPT_CONF_PREFIX}/options-ssl-nginx.conf'
             - type: bind
               source: ./ssl-conf.sh
