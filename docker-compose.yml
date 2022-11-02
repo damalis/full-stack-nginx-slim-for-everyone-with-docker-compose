@@ -36,7 +36,7 @@ services:
             - 'docker-volume-backup.stop-during-backup=true'
         command: >
             bash -c "apt-get -y update && apt-get install -y zip unzip libicu-dev && docker-php-ext-install pdo_mysql intl && docker-php-ext-enable pdo_mysql intl; curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer && 
-            composer create-project slim/slim-skeleton:dev-master webapp && cd ${WEBSERVER_DOC_ROOT}/webapp && composer require slim/http-cache;  
+            if [ \"$$(ls -A ${WEBSERVER_DOC_ROOT}/webapp)\" ]; then composer update --working-dir=${WEBSERVER_DOC_ROOT}/webapp; else composer create-project slim/slim-skeleton:dev-master webapp && cd ${WEBSERVER_DOC_ROOT}/webapp && composer require slim/http-cache; fi; 
             grep -qe 'date.timezone = ${LOCAL_TIMEZONE}' ${PHP_INI_DIR_PREFIX}/php/conf.d/security.ini || echo 'date.timezone = ${LOCAL_TIMEZONE}' >> ${PHP_INI_DIR_PREFIX}/php/conf.d/security.ini; php-fpm"
 
     webserver:
