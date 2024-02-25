@@ -1,8 +1,8 @@
 # [full stack nginx Slim for everyone with docker compose](https://github.com/damalis/full-stack-nginx-slim-for-everyone-with-docker-compose)
 
-If You want to build a website with Slim "webapp" at short time;
+If You want to build a website with Slim at short time;
 
-#### Full stack Nginx Slim "webapp":
+#### Full stack Nginx Slim:
 <p align="left"> <a href="https://www.slimframework.com/" target="_blank" rel="noreferrer"> <img src="https://avatars.githubusercontent.com/u/11195762?s=200&v=4" alt="Slim" height="40" width="40"/> </a>&nbsp;&nbsp;&nbsp; 
 <a href="https://www.docker.com/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/docker/docker.png" alt="docker" width="40" height="40" width="40"/> </a>&nbsp;&nbsp;&nbsp; 
 <a href="https://mariadb.org/" target="_blank" rel="noreferrer"> <img src="https://avatars.githubusercontent.com/u/5877084?s=200&v=4" alt="mariadb" height="50" width="50"/> </a>&nbsp;&nbsp;&nbsp; 
@@ -284,7 +284,7 @@ You should make changes custom host configurations ```./php-fpm/php-fpm.d/z-www.
 docker container restart slim
 ```
 
-add and/or remove slim site folders and files with any ftp client program in ```./slim/webapp``` folder.
+add and/or remove slim site folders and files with any ftp client program in ```./slim``` folder.
 <br />You can also visit `https://example.com` to access website after starting the containers.
 
 #### Webserver
