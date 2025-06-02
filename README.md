@@ -95,7 +95,7 @@ chmod +x install.sh
 
 ## Requirements
 
-Make sure you have the latest versions of **Docker** and **Docker Compose** installed on your machine.
+Make sure you have the latest versions of **Docker** and **Docker Compose** installed on your machine and require up to 2 GB of RAM.
 
 - [How install docker](https://docs.docker.com/engine/install/)
 - [How install docker compose](https://docs.docker.com/compose/install/)
@@ -252,6 +252,14 @@ to remove portainer and the other images:
 
 ```
 docker rmi $(docker image ls -q)
+```
+
+### Logs containers
+
+To fetch the logs of a container.
+
+```
+docker container logs container_name_or_id
 ```
 
 ### Project from existing source
