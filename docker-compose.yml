@@ -37,7 +37,7 @@ services:
             - 'docker-volume-backup.stop-during-backup=true'
         command: >
             bash -c "apt-get update && sh /tmp/packagecheck.sh 'unzip' && curl -sSL https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions -o - | sh -s intl pdo_mysql zip @composer && 
-            if [ \"$$(ls -A ${WEBSERVER_DOC_ROOT}/public)\" ]; then composer update --working-dir=${WEBSERVER_DOC_ROOT}; else rm -f ${WEBSERVER_DOC_ROOT}/README.md && composer create-project slim/slim . --working-dir=${WEBSERVER_DOC_ROOT} && composer require slim/http-cache php-di/php-di --working-dir=${WEBSERVER_DOC_ROOT}; fi; 
+            if [ \"$$(ls -A ${WEBSERVER_DOC_ROOT}/public)\" ]; then composer update --working-dir=${WEBSERVER_DOC_ROOT}; else rm -f ${WEBSERVER_DOC_ROOT}/README.md && composer create-project slim/slim-skeleton . --working-dir=${WEBSERVER_DOC_ROOT} && composer require slim/http-cache slim/psr7 nyholm/psr7 nyholm/psr7-server guzzlehttp/psr7 laminas/laminas-diactoros --working-dir=${WEBSERVER_DOC_ROOT}; fi; 
             grep -qxF 'date.timezone = ${LOCAL_TIMEZONE}' ${PHP_INI_DIR_PREFIX}/php/conf.d/security.ini || echo 'date.timezone = ${LOCAL_TIMEZONE}' >> ${PHP_INI_DIR_PREFIX}/php/conf.d/security.ini; php-fpm"
 
     webserver:
