@@ -178,7 +178,7 @@ then
 	sudo dnf -y install dnf-plugins-core yum-utils openssl-libs
 	if [ "$ID" == "fedora" ] || ([ "$ID" == "rhel" ] && [ "$unamem" == "s390x" ])
 	then
-		sudo dnf config-manager addrepo --from-repofile=https://download.docker.com/linux/$ID/docker-ce.repo
+		sudo dnf config-manager addrepo --overwrite --from-repofile=https://download.docker.com/linux/$ID/docker-ce.repo
 	elif [ "$ID" == "rhel" ] || [ "$id_like" == "rhel" ]
 	then
 		sudo dnf config-manager --add-repo https://download.docker.com/linux/rhel/docker-ce.repo
@@ -228,7 +228,7 @@ then
 	sudo $lpms update
 	sudo $lpms -y install ca-certificates curl gnupg lsb-release
 	sudo mkdir -m 0755 /etc/apt/keyrings
-	sudo curl -fsSL https://download.docker.com/linux/$operation_system/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+	sudo curl -fsSL https://download.docker.com/linux/$operation_system/gpg | sudo gpg --batch --yes --dearmor -o /etc/apt/keyrings/docker.gpg
 	sudo chmod a+r /etc/apt/keyrings/docker.gpg
 	# Add the repository to Apt sources:
 	echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/$operation_system $codename stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
