@@ -362,7 +362,7 @@ $app = AppFactory::create();
 $serverRequestCreator = ServerRequestCreatorFactory::create();
 $request = $serverRequestCreator->createServerRequestFromGlobals();
 
-$client = new \Predis\Client('tcp://localhost:6379', [
+$client = new \Predis\Client('tcp://redis:6379', [
 	'prefix' => $request->getUri()->getHost()
 ]);
 
